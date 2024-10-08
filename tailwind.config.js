@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "selector",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -13,7 +14,7 @@ module.exports = {
         "card-background": "#394B61",
         "off-white": "#D4D7DD",
         nav: "#1F2A3C",
-        tint:"#00E0FF"
+        tint: "#00E0FF",
       },
     },
   },

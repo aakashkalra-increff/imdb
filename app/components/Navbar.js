@@ -9,6 +9,7 @@ import watchLaterSvg from "../icons/watch_later.svg";
 import recomendedSvg from "../icons/recomended.svg";
 import settingsSvg from "../icons/settings.svg";
 import logoutSvg from "../icons/logout.svg";
+import profile from "../profile.jpg";
 const section1 = [
   {
     image: searchSvg,
@@ -39,7 +40,7 @@ const section2 = [
   {
     image: recomendedSvg,
     name: "Recomended",
-  }
+  },
 ];
 const section3 = [
   {
@@ -51,33 +52,68 @@ const section3 = [
     name: "Logout",
   },
 ];
+const name = "Eric Hoffman";
 const Navbar = () => {
+  const selected = "Discover";
   return (
     <div>
-      <div className="h-20"></div>
+      <div className="pt-10 pb-5">
+        <Image
+          src={profile}
+          className="h-24 w-24 mx-auto rounded-full"
+          alt="Profile picture"
+        />
+        <div className="text-center pt-3">{name}</div>
+      </div>
+      <hr className="border-card-background" />
       <ul className="py-3">
         {section1.map((item) => (
-          <li key={item.name} className="flex leading-9 ps-12">
+          <li
+            key={item.name}
+            className={`flex leading-9 ps-12 cursor-pointer ${
+              selected === item.name ? "border-r-tint border-r-2 text-tint" : ""
+            }`}
+          >
             {" "}
-            <Image src={item.image} width={16} height={16} className="mr-3.5" />
+            <Image
+              src={item.image}
+              width={16}
+              height={16}
+              className="mr-3.5"
+              alt={item.name}
+            />
             {item.name}
           </li>
         ))}
       </ul>
+      <hr className="border-card-background" />
       <ul className="py-3">
         {section2.map((item) => (
-          <li key={item.name} className="flex leading-9 ps-12">
+          <li key={item.name} className="flex leading-9 ps-12 cursor-pointer">
             {" "}
-            <Image src={item.image} width={16} height={16} className="mr-3.5" />
+            <Image
+              src={item.image}
+              width={16}
+              height={16}
+              className="mr-3.5"
+              alt={item.name}
+            />
             {item.name}
           </li>
         ))}
       </ul>
+      <hr className="border-card-background" />
       <ul className="py-3">
         {section3.map((item) => (
-          <li key={item.name} className="flex leading-9 ps-12">
+          <li key={item.name} className="flex leading-9 ps-12 cursor-pointer">
             {" "}
-            <Image src={item.image} width={16} height={16} className="mr-3.5" />
+            <Image
+              src={item.image}
+              width={16}
+              height={16}
+              className="mr-3.5"
+              alt={item.name}
+            />
             {item.name}
           </li>
         ))}

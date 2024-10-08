@@ -1,15 +1,11 @@
-const URL = "https://azfun-increff-caas-dev.azurewebsites.net/api/ui-testing/";
-import movies from "./movies-list";
+const URL = "./movies-list.json";
 export const fetchMovies = async () => {
-  // try {
-  //   const res = await fetch(URL);
-  //   console.log(res);
-  //   return res.json();
-  // } catch (e) {
-  //   console.log(e);
-  //   return null;
-  // }
-  return movies;
+  try {
+    const res = await fetch(URL);
+    return res.json();
+  } catch (e) {
+    return [];
+  }
 };
 export const findMovieById = async (id) => {
   const movies = await fetchMovies();

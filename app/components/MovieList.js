@@ -1,36 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
-import { fetchMovies } from "../actions";
+import { useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
 import MovieDetail from "./MovieDetail/MovieDetail";
-import Image from "next/image";
-import SearchSvg from "../icons/search.svg";
-import CloseSvg from "../icons/close.svg"
-import Search from "./Search";
-const MovieList = () => {
-  const [movies, setMovies] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]);
-  const [search, setSearch] = useState("");
+const MovieList = ({ movies, view }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [selectedRow, setSelectedRow] = useState(0);
-  useEffect(() => {
-    (async () => {
-      const movies = await fetchMovies();
-      setMovies([...movies]);
-      setFilteredMovies([...movies]);
-    })();
-  }, []);
-  const handleChange = (event) => {
-    const val = event.target.value;
-    setSearch(val);
-    filterMovies(val);
-  };
-  const filterMovies = (val) => {
-    const m = movies.filter(({ Title }) =>
-      Title.toLowerCase().includes(val.toLowerCase())
-    );
-    setFilteredMovies([...m]);
-  };
   const handleClick = (movie, index) => {
     setSelectedMovie(null);
     setTimeout(() => {
@@ -38,26 +12,43 @@ const MovieList = () => {
       setSelectedRow(Math.floor(index / 5) + 1);
     }, 100);
   };
+
+  useEffect(() => {
+    setSelectedMovie(null);
+  }, [JSON.stringify(movies), view]);
   return (
-    <div>
-      <div className="py-10">
-       <Search val={search} handleChange={handleChange}/>
-      </div>
-      <div className="grid grid-cols-5 gap-[2rem]">
-        {selectedMovie && (
-          <MovieDetail movie={selectedMovie} row={selectedRow} />
-        )}
-        {filteredMovies.map((movie, i) => (
-          <div
-            className=""
-            key={movie.imdbID}
-            onClick={() => handleClick(movie, i)}
-          >
-            <MovieCard key={movie.Title} movie={movie} />
-          </div>
-        ))}
-      </div>
-    </div>
+    <>
+      {movies.length ? (
+        <div className="px-3 md:px-0">
+          {view === "grid" ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[2rem]">
+              {selectedMovie && (
+                <MovieDetail movie={selectedMovie} row={selectedRow} />
+              )}
+              {movies.map((movie, i) => (
+                <div key={movie.imdbID} onClick={() => handleClick(movie, i)}>
+                  <MovieCard key={movie.Title} movie={movie} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div>
+              {movies.map((movie, i) => (
+                <div key={movie.imdbID} onClick={() => handleClick(movie, i)}>
+                  <MovieDetail
+                    key={movie.Title}
+                    movie={movie}
+                    showAnimation={false}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div>No items for this search.</div>
+      )}
+    </>
   );
 };
 export default MovieList;
