@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: "#D4D7DD";
+  --foreground: "#1F2A3C";
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,4 +25,10 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+.color{
+  filter: invert(99%) sepia(56%) saturate(477%) hue-rotate(176deg) brightness(94%) contrast(84%);
+}
+.tint{
+  filter: invert(70%) sepia(15%) saturate(6935%) hue-rotate(144deg) brightness(104%) contrast(106%);
 }

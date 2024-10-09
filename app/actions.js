@@ -7,7 +7,3 @@ export const fetchMovies = async () => {
     return [];
   }
 };
-export const findMovieById = async (id) => {
-  const movies = await fetchMovies();
-  return movies.find((movie) => movie.imdbID === id);
-};

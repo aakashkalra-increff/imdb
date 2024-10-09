@@ -16,48 +16,49 @@ const MovieDetail = ({ movie, row, showAnimation = true }) => {
       style={{ gridRow: row }}
       className={`detail-view ${
         showAnimation ? "animate" : ""
-      } bg-card-background rounded-xl text-off-white my-4 overflow-hidden`}
+      } bg-slate-400/20 dark:bg-card-background rounded-xl my-4 overflow-hidden
+      `}
     >
       <div
-        className={`flex origin-center w-full`}
+        className={`grid grid-cols-3 origin-center w-full`}
         style={{ opacity: showAnimation ? animate : 1 }}
       >
-        <div className="w-1/3 h-80">
-          <img
+        <div className="h-80 col-span-3 sm:col-span-1">
+          <img // eslint-disable-line
             src={movie.Poster}
             className="h-full w-full"
             alt="movie poster"
           />
         </div>
-        <div className="m-2 ms-11 w-2/3 flex flex-col justify-center">
-          <div>
-            <div className="text-2xl">{movie.Title}</div>
-            <div className="flex items-center mt-3">
-              <div className="w-24 bg-gray-800 rounded-md h-2 flex">
-                <span
-                  className="bg-tint h-full"
-                  style={{ width: `${movie.imdbRating * 10}%` }}
-                ></span>
-              </div>
-              {movie.imdbRating !== "N/A" && (
+        <div className="m-2 ms-6 md:ms-8 lg:ms-11 col-span-3 sm:col-span-2 flex flex-col justify-center">
+          <div className="text-sm lg:text-base">
+            <div className="text-xl lg:text-2xl">{movie.Title}</div>
+            {movie.imdbRating !== "N/A" && (
+              <div className="flex items-center ">
+                <div className="w-24 bg-gray-800 rounded-md h-2 flex overflow-hidden">
+                  <span
+                    className="bg-nav dark:bg-tint h-full"
+                    style={{ width: `${movie.imdbRating * 10}%` }}
+                  ></span>
+                </div>
                 <div className="ms-3 leading-7">{movie.imdbRating} /10</div>
-              )}
-            </div>
-            <div className="mt-3">
+              </div>
+            )}
+            <div className="lg:mt-3 leading-5 xl:leading-7">
               {movie.Released !== "N/A" && (
-                <div className="text-base leading-7">
+                <div>
                   <span className="w-28 inline-block">Year:</span>{" "}
                   {moment(movie.Released, "DD MMM YYYY").year()}
                 </div>
               )}
               {movie.Runtime !== "N/A" && (
-                <div className="leading-7">
+                <div>
                   <span className="w-28 inline-block">Running time:</span>{" "}
                   {movie.Runtime}
                 </div>
               )}
               {movie.Director !== "N/A" && (
-                <div className="leading-7">
+                <div>
                   <span className="w-28 inline-block">Drirected By:</span>{" "}
                   {movie.Director}
                 </div>
@@ -67,12 +68,12 @@ const MovieDetail = ({ movie, row, showAnimation = true }) => {
                 {movie.Language}
               </div>
             </div>
-            <div className="text-sm my-2">{movie.Plot}</div>
+            <div className="text-xs lg:text-sm my-2">{movie.Plot}</div>
             <div className="my-3">
-              <button className="h-[38px] bg-tint text-black font-bold rounded-lg text-center mr-2 w-40">
+              <button className="h-[38px] bg-nav dark:bg-tint dark:text-black text-white font-bold rounded-lg text-center mr-2 w-32 lg:w-40">
                 Play Movie
               </button>
-              <button className="h-[38px] border-tint border-2 text-tint text-center rounded-lg w-40">
+              <button className="h-[38px] border-nav dark:border-tint border-2 dark:text-tint text-center rounded-lg w-32 lg:w-40">
                 Watch Trailer
               </button>
             </div>

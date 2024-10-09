@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { fetchMovies } from "../actions";
-import Search from "./Search";
+import Navbar from "./Navbar";
 import MovieList from "./MovieList";
 import moment from "moment";
-const Home = () => {
+const Home = ({ toggleSideNav }) => {
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [search, setSearch] = useState("");
@@ -55,14 +55,15 @@ const Home = () => {
     setFilteredMovies([...sortedMovies]);
   };
   return (
-    <div>
-      <div className="py-10 w-full">
-        <Search
+    <div className="pb-3">
+      <div className="md:py-10 mb-2 md:mb-0 w-full md:static z-20 fixed  left-0  top-0">
+        <Navbar
           val={search}
           handleChange={handleChange}
           toggleView={toggleView}
           handleSortChange={handleSortChange}
           view={view}
+          toggleSideNav={toggleSideNav}
         />
       </div>
       <MovieList movies={filteredMovies} view={view} />

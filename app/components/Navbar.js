@@ -1,123 +1,92 @@
 "use client";
+import { useContext, useState } from "react";
 import Image from "next/image";
-import playlistSvg from "../icons/playlist.svg";
-import movieSvg from "../icons/movie.svg";
-import tvShowsSvg from "../icons/tv_shows.svg";
-import myListSvg from "../icons/my_list.svg";
-import searchSvg from "../icons/search.svg";
-import watchLaterSvg from "../icons/watch_later.svg";
-import recomendedSvg from "../icons/recomended.svg";
-import settingsSvg from "../icons/settings.svg";
-import logoutSvg from "../icons/logout.svg";
-import profile from "../profile.jpg";
-const section1 = [
-  {
-    image: searchSvg,
-    name: "Discover",
-  },
-  {
-    image: playlistSvg,
-    name: "Playlist",
-  },
-  {
-    image: movieSvg,
-    name: "Movies",
-  },
-  {
-    image: tvShowsSvg,
-    name: "TV Shows",
-  },
-  {
-    image: myListSvg,
-    name: "My List",
-  },
-];
-const section2 = [
-  {
-    image: watchLaterSvg,
-    name: "Watch Later",
-  },
-  {
-    image: recomendedSvg,
-    name: "Recomended",
-  },
-];
-const section3 = [
-  {
-    image: settingsSvg,
-    name: "Settings",
-  },
-  {
-    image: logoutSvg,
-    name: "Logout",
-  },
-];
-const name = "Eric Hoffman";
-const Navbar = () => {
-  const selected = "Discover";
+import SortMenu from "./SortMenu";
+import ThemeContext from "../contexts/themeContext";
+import SearchSvg from "../icons/search.svg";
+import CloseSvg from "../icons/close.svg";
+import lightThemeSvg from "../icons/light_theme.svg";
+import darkThemeSvg from "../icons/dark_theme.svg";
+import kebabMenuSvg from "../icons/kebab_menu.svg";
+import gridSvg from "../icons/grid.svg";
+import hamburgerSvg from "../icons/hamburger.svg";
+const Navbar = ({
+  val,
+  handleChange,
+  view,
+  toggleView,
+  handleSortChange,
+  toggleSideNav,
+}) => {
+  const { theme, setTheme } = useContext(ThemeContext);
+  const [expanded, setExpanded] = useState(false);
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
   return (
-    <div>
-      <div className="pt-10 pb-5">
-        <Image
-          src={profile}
-          className="h-24 w-24 mx-auto rounded-full"
-          alt="Profile picture"
-        />
-        <div className="text-center pt-3">{name}</div>
+    <div className="flex justify-between md:bg-transparent dark:md:bg-transparent bg-white dark:bg-nav">
+      <div className="flex items-center flex-1 me-1 md:me-3 ">
+        <div className="pl-4 h-14 flex items-center md:hidden">
+          <Image
+            src={hamburgerSvg}
+            className="cursor-pointer me-2 h-5 w-5 md:h-6 md:w-6  color dark:filter-none"
+            onClick={toggleSideNav}
+            alt="menu icon"
+          />
+        </div>
+        {expanded ? (
+          <label className="relative lg:grow-0 grow basis-2/3 transition duration-1000 delay-150">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-2 md:pl-4">
+              <Image
+                className="h-3 w-3 md:h-5 md:w-5 color dark:filter-none"
+                src={SearchSvg}
+                alt="search icon"
+              />
+            </span>
+            <input
+              value={val}
+              onChange={(event) => handleChange(event.target.value)}
+              className="w-full h-7 md:h-14 rounded-md ps-7 md:ps-11 pe-3 bg-slate-400/20 dark:bg-nav placeholder:text-nav dark:placeholder:text-off-white placeholder-shown:text-ellipsis text-nav dark:text-white focus:outline-none focus:ring-sky-500 focus:ring-1 h-12"
+              placeholder="Search..."
+            />
+            <span className="absolute z-0 inset-y-0 right-4 flex items-center pl-2">
+              <Image
+                className="h-3 w-3 md:h-5 md:w-5 color dark:filter-none"
+                src={CloseSvg}
+                alt="close icon"
+                onClick={() => {
+                  setExpanded(false);
+                  handleChange("");
+                }}
+              />
+            </span>
+          </label>
+        ) : (
+          <div className="h-14 pl-2 flex items-center">
+            <Image
+              className="h-3 w-3 md:h-5 md:w-5 color dark:filter-none"
+              src={SearchSvg}
+              alt="search icon"
+              onClick={() => setExpanded(true)}
+            />
+          </div>
+        )}
       </div>
-      <hr className="border-card-background" />
-      <ul className="py-3">
-        {section1.map((item) => (
-          <li
-            key={item.name}
-            className={`flex leading-9 ps-12 cursor-pointer ${
-              selected === item.name ? "border-r-tint border-r-2 text-tint" : ""
-            }`}
-          >
-            {" "}
-            <Image
-              src={item.image}
-              width={16}
-              height={16}
-              className="mr-3.5"
-              alt={item.name}
-            />
-            {item.name}
-          </li>
-        ))}
-      </ul>
-      <hr className="border-card-background" />
-      <ul className="py-3">
-        {section2.map((item) => (
-          <li key={item.name} className="flex leading-9 ps-12 cursor-pointer">
-            {" "}
-            <Image
-              src={item.image}
-              width={16}
-              height={16}
-              className="mr-3.5"
-              alt={item.name}
-            />
-            {item.name}
-          </li>
-        ))}
-      </ul>
-      <hr className="border-card-background" />
-      <ul className="py-3">
-        {section3.map((item) => (
-          <li key={item.name} className="flex leading-9 ps-12 cursor-pointer">
-            {" "}
-            <Image
-              src={item.image}
-              width={16}
-              height={16}
-              className="mr-3.5"
-              alt={item.name}
-            />
-            {item.name}
-          </li>
-        ))}
-      </ul>
+      <div className={`flex items-center`}>
+        <SortMenu handleSortChange={handleSortChange} className="mx-2" />
+        <Image
+          src={theme === "dark" ? lightThemeSvg : darkThemeSvg}
+          alt="theme_icon"
+          onClick={toggleTheme}
+          className="cursor-pointer mx-2 h-4 w-4 md:h-6 md:w-6 color dark:filter-none"
+        />
+        <Image
+          src={view === "grid" ? kebabMenuSvg : gridSvg}
+          alt="theme_icon"
+          onClick={toggleView}
+          className="cursor-pointer mx-2 h-4 w-4 md:h-6 md:w-6  color dark:filter-none"
+        />
+      </div>
     </div>
   );
 };
