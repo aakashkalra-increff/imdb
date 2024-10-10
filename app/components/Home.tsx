@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { fetchMovies } from "../actions";
 import Navbar from "./Navbar";
 import MovieList from "./MovieList";
-import moment from "moment";
+import { Invalid } from "../constants";
 const Home = ({ toggleSideNav }) => {
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
@@ -19,39 +19,42 @@ const Home = ({ toggleSideNav }) => {
       setFilteredMovies([...movies]);
     })();
   }, []);
-  const handleChange = (val) => {
+  const handleChange = (val: string) => {
     setSearch(val);
     filterMovies(val);
   };
-  const filterMovies = (val) => {
+  const filterMovies = (val: string) => {
     const m = movies.filter(({ Title, Director, Plot, Language }) => {
       const s = Title + " " + Director + " " + Plot + " " + Language;
       return s.toLocaleLowerCase().includes(val.toLocaleLowerCase().trim());
     });
     setFilteredMovies([...m]);
   };
-  const handleSortChange = (key) => {
-    let sortedMovies = [];
-    if (key === "featured") {
-      sortedMovies = movies;
-    } else if (key === "Released") {
-      sortedMovies = filteredMovies.sort((item1, item2) => {
-        return item1[key] === "N/A"
-          ? 1
-          : item2[key] === "N/A"
-          ? -1
-          : moment(item2[key], "DD MMM YYYY").valueOf() -
-            moment(item1[key], "DD MMM YYYY").valueOf();
-      });
-    } else {
-      sortedMovies = filteredMovies.sort((item1, item2) =>
-        item1[key] === "N/A"
-          ? 1
-          : item2[key] === "N/A"
-          ? -1
-          : item2[key] - item1[key]
-      );
+  const applySort = (key: string) => {
+    switch (key) {
+      case "Released":
+        return filteredMovies.sort((item1, item2) => {
+          return item1[key] === Invalid.NA
+            ? 1
+            : item2[key] === Invalid.NA
+            ? -1
+            : new Date(item2[key]).getTime() -
+              new Date(item1[key]).getTime();
+        });
+      case "imdbRating":
+        return filteredMovies.sort((item1, item2) =>
+          item1[key] === Invalid.NA
+            ? 1
+            : item2[key] === Invalid.NA
+            ? -1
+            : item2[key] - item1[key]
+        );
+      default:
+        return movies;
     }
+  };
+  const handleSortChange = (key: string) => {
+    const sortedMovies = applySort(key);
     setFilteredMovies([...sortedMovies]);
   };
   return (

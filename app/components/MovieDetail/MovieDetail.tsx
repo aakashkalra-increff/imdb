@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import "./MovieDetail.css";
-import Image from "next/image";
-import moment from "moment";
-const MovieDetail = ({ movie, row, showAnimation = true }) => {
+import { Invalid } from "../../constants";
+const MovieDetail = ({ movie, row = 0, showAnimation = true }) => {
   const [animate, setAnimate] = useState(0);
   useEffect(() => {
     setAnimate(0);
@@ -14,27 +13,29 @@ const MovieDetail = ({ movie, row, showAnimation = true }) => {
   return (
     <div
       style={{ gridRow: row }}
-      className={`detail-view ${
+      className={`detail-view flex items-center ${
         showAnimation ? "animate" : ""
       } bg-slate-400/20 dark:bg-card-background rounded-xl my-4 overflow-hidden
       `}
     >
       <div
-        className={`grid grid-cols-3 origin-center w-full`}
+        className={`grid grid-cols-3 lg:grid-cols-4 origin-center w-full`}
         style={{ opacity: showAnimation ? animate : 1 }}
       >
-        <div className="h-80 col-span-3 sm:col-span-1">
-          <img // eslint-disable-line
-            src={movie.Poster}
-            className="h-full w-full"
-            alt="movie poster"
-          />
+        <div className="col-span-3 sm:col-span-1 flex items-center justify-center w-full overflow-hidden my-2 sm:mx-2">
+          <div className="max-h-80 max-w-56">
+            <img // eslint-disable-line
+              src={movie.Poster}
+              className="object-stretch"
+              alt="movie poster"
+            />
+          </div>
         </div>
-        <div className="m-2 ms-6 md:ms-8 lg:ms-11 col-span-3 sm:col-span-2 flex flex-col justify-center">
-          <div className="text-sm lg:text-base">
+        <div className="m-2 ms-6 md:ms-8 lg:ms-11 col-span-3 lg:col-span-3 sm:col-span-2 flex flex-col justify-center">
+          <div className="text-sm lg:text-base ">
             <div className="text-xl lg:text-2xl">{movie.Title}</div>
-            {movie.imdbRating !== "N/A" && (
-              <div className="flex items-center ">
+            {movie.imdbRating !== Invalid.NA && (
+              <div className="flex items-center">
                 <div className="w-24 bg-gray-400 dark:bg-gray-800 rounded-md h-2 flex overflow-hidden">
                   <span
                     className="bg-navy dark:bg-tint h-full"
@@ -45,31 +46,31 @@ const MovieDetail = ({ movie, row, showAnimation = true }) => {
               </div>
             )}
             <div className="lg:mt-3 leading-5 xl:leading-7">
-              {movie.Released !== "N/A" && (
+              {movie.Released !== Invalid.NA && (
                 <div>
-                  <span className="w-28 inline-block">Year:</span>{" "}
-                  {moment(movie.Released, "DD MMM YYYY").year()}
+                  <span className="w-28 inline-block">Year:</span>
+                  {new Date(movie.Released).getFullYear()}
                 </div>
               )}
-              {movie.Runtime !== "N/A" && (
+              {movie.Runtime !== Invalid.NA && (
                 <div>
                   <span className="w-28 inline-block">Running time:</span>
                   {movie.Runtime}
                 </div>
               )}
-              {movie.Director !== "N/A" && (
+              {movie.Director !== Invalid.NA && (
                 <div>
-                  <span className="w-28 inline-block">Drirected By: </span>{" "}
+                  <span className="w-28 inline-block">Drirected By: </span>
                   {movie.Director}
                 </div>
               )}
               <div>
-                <span className="w-28 inline-block leading-7">Language:</span>{" "}
+                <span className="w-28 inline-block leading-7">Language:</span>
                 {movie.Language}
               </div>
             </div>
             <div className="text-xs lg:text-sm my-2">{movie.Plot}</div>
-            <div className="my-3">
+            <div className="my-3 ">
               <button className="h-[38px] bg-navy dark:bg-tint dark:text-black text-white font-bold rounded-lg text-center mr-2 w-32 lg:w-40">
                 Play Movie
               </button>

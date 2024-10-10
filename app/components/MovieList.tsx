@@ -43,7 +43,6 @@ const MovieList = ({ movies, view }) => {
               {movies.map((movie, i) => (
                 <div key={movie.imdbID}>
                   <MovieDetail
-                    key={movie.Title}
                     movie={movie}
                     showAnimation={false}
                   />

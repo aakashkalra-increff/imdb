@@ -33,11 +33,7 @@ const SortMenu = ({ handleSortChange }) => {
     focus.current = true;
   };
   const toggleMenu = () => {
-    if (focus.current) {
-      hideMenu();
-      return;
-    }
-      showMenu();
+    focus.current ? hideMenu() : showMenu();
   };
   return (
     <div className="flex items-center h-7">

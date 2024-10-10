@@ -86,13 +86,13 @@ const SideNavbar = ({ open, toggleNav }) => {
                 key={name}
                 className={`flex leading-9 ps-12 cursor-pointer items-center ${
                   selected === name
-                    ? "border-r-navy border-r-tint border-r-4 text-tint"
+                    ? "border-r-gray-500 dark:border-r-tint border-r-4 dark:text-tint text-gray-500 font-semibold"
                     : "text-navy dark:text-off-white"
                 }`}
               >
                 {createElement(icon, {
                   className: `mr-3.5 h-5 w-5  ${
-                    selected === name ? "text-tint" : ""
+                    selected === name ? "dark:text-tint text-r-gray-500" : ""
                   }`,
                 })}
                 {name}

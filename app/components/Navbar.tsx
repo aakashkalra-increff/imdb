@@ -19,7 +19,7 @@ const Navbar = ({
   handleSortChange,
   toggleSideNav,
 }) => {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext) as any;
   const [expanded, setExpanded] = useState(false);
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -74,24 +74,26 @@ const Navbar = ({
         )}
       </div>
       <div className={`flex items-center`}>
-        <SortMenu handleSortChange={handleSortChange} className="mx-2" />
+        <SortMenu handleSortChange={handleSortChange} />
         <Image
           src={theme === "dark" ? lightThemeSvg : darkThemeSvg}
           alt="theme_icon"
           onClick={toggleTheme}
           className="cursor-pointer mx-2 h-4 w-4 md:h-6 md:w-6 color dark:filter-none"
         />
-        {view === "grid" ? (
-          <MdFormatListBulleted
-            onClick={toggleView}
-            className="cursor-pointer mx-2 h-4 w-4 md:h-6 md:w-6"
-          />
-        ) : (
-          <MdOutlineGridView
-            onClick={toggleView}
-            className="cursor-pointer mx-2 h-4 w-4 md:h-6 md:w-6"
-          />
-        )}
+        <span className="hidden md:inline">
+          {view === "grid" ? (
+            <MdFormatListBulleted
+              onClick={toggleView}
+              className="cursor-pointer mx-2 h-4 w-4 md:h-6 md:w-6"
+            />
+          ) : (
+            <MdOutlineGridView
+              onClick={toggleView}
+              className="cursor-pointer mx-2 h-4 w-4 md:h-6 md:w-6"
+            />
+          )}
+        </span>
       </div>
     </div>
   );
