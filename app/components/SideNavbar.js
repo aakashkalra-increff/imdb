@@ -1,57 +1,60 @@
 "use client";
+import { createElement } from "react";
 import Image from "next/image";
-import playlistSvg from "../icons/playlist.svg";
-import movieSvg from "../icons/movie.svg";
-import tvShowsSvg from "../icons/tv_shows.svg";
-import myListSvg from "../icons/my_list.svg";
-import searchSvg from "../icons/search.svg";
-import watchLaterSvg from "../icons/watch_later.svg";
-import recomendedSvg from "../icons/recomended.svg";
-import settingsSvg from "../icons/settings.svg";
-import logoutSvg from "../icons/logout.svg";
 import profile from "../profile.jpg";
 import closeSvg from "../icons/close.svg";
-const section1 = [
-  {
-    image: searchSvg,
-    name: "Discover",
-  },
-  {
-    image: playlistSvg,
-    name: "Playlist",
-  },
-  {
-    image: movieSvg,
-    name: "Movies",
-  },
-  {
-    image: tvShowsSvg,
-    name: "TV Shows",
-  },
-  {
-    image: myListSvg,
-    name: "My List",
-  },
-];
-const section2 = [
-  {
-    image: watchLaterSvg,
-    name: "Watch Later",
-  },
-  {
-    image: recomendedSvg,
-    name: "Recomended",
-  },
-];
-const section3 = [
-  {
-    image: settingsSvg,
-    name: "Settings",
-  },
-  {
-    image: logoutSvg,
-    name: "Logout",
-  },
+import { FaSearch } from "react-icons/fa";
+import { FaListUl } from "react-icons/fa";
+import { MdOutlinePlaylistPlay } from "react-icons/md";
+import { MdLiveTv } from "react-icons/md";
+import { MdTv } from "react-icons/md";
+import { PiClockClockwiseFill } from "react-icons/pi";
+import { FaRegHeart } from "react-icons/fa";
+import { IoSettingsOutline } from "react-icons/io5";
+import { MdLogout } from "react-icons/md";
+const navbarSections = [
+  [
+    {
+      icon: FaSearch,
+      name: "Discover",
+    },
+    {
+      icon: MdOutlinePlaylistPlay,
+      name: "Playlist",
+    },
+    {
+      icon: MdLiveTv,
+      name: "Movies",
+    },
+    {
+      icon: MdTv,
+      name: "TV Shows",
+    },
+    {
+      icon: FaListUl,
+      name: "My List",
+    },
+  ],
+  [
+    {
+      icon: PiClockClockwiseFill,
+      name: "Watch Later",
+    },
+    {
+      icon: FaRegHeart,
+      name: "Recomended",
+    },
+  ],
+  [
+    {
+      icon: IoSettingsOutline,
+      name: "Settings",
+    },
+    {
+      icon: MdLogout,
+      name: "Logout",
+    },
+  ],
 ];
 const name = "Eric Hoffman";
 const SideNavbar = ({ open, toggleNav }) => {
@@ -74,63 +77,30 @@ const SideNavbar = ({ open, toggleNav }) => {
         />
         <div className="text-center pt-3">{name}</div>
       </div>
-      <hr className="border-card-background" />
-      <ul className="py-3">
-        {section1.map((item) => (
-          <li
-            key={item.name}
-            className={`flex leading-9 ps-12 cursor-pointer ${
-              selected === item.name
-                ? "border-r-nav border-r-tint border-r-4 text-nav text-tint"
-                : ""
-            }`}
-          >
-            {" "}
-            <Image
-              src={item.image}
-              width={16}
-              height={16}
-              className={`mr-3.5 ${
-                selected === item.name ? "tint" : "dark:filter-none color"
-              }`}
-              alt={item.name}
-            />
-            {item.name}
-          </li>
-        ))}
-      </ul>
-      <hr className="border-card-background" />
-      <ul className="py-3">
-        {section2.map((item) => (
-          <li key={item.name} className="flex leading-9 ps-12 cursor-pointer">
-            {" "}
-            <Image
-              src={item.image}
-              width={16}
-              height={16}
-              className="mr-3.5 color dark:filter-none"
-              alt={item.name}
-            />
-            {item.name}
-          </li>
-        ))}
-      </ul>
-      <hr className="border-card-background" />
-      <ul className="py-3">
-        {section3.map((item) => (
-          <li key={item.name} className="flex leading-9 ps-12 cursor-pointer">
-            {" "}
-            <Image
-              src={item.image}
-              width={16}
-              height={16}
-              className="mr-3.5 color dark:filter-none"
-              alt={item.name}
-            />
-            {item.name}
-          </li>
-        ))}
-      </ul>
+      {navbarSections.map((section, i) => (
+        <div key={i}>
+          <hr className="border-card-background" />
+          <ul className="py-3">
+            {section.map(({ name, icon }) => (
+              <li
+                key={name}
+                className={`flex leading-9 ps-12 cursor-pointer items-center ${
+                  selected === name
+                    ? "border-r-navy border-r-tint border-r-4 text-tint"
+                    : "text-navy dark:text-off-white"
+                }`}
+              >
+                {createElement(icon, {
+                  className: `mr-3.5 h-5 w-5  ${
+                    selected === name ? "text-tint" : ""
+                  }`,
+                })}
+                {name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 };

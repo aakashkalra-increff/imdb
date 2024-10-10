@@ -11,12 +11,12 @@ export default function App() {
     setNavOpen((prev)=> !prev);
   }
   return (
-    <main className={`flex min-h-screen ${theme} text-nav dark:text-inherit`}>
+    <main className={`flex min-h-screen ${theme} text-navy dark:text-inherit`}>
       <ThemeContext.Provider value={{ theme, setTheme }}>
         <div
           className={`${
             navOpen ? "block" : "hidden"
-          } md:block fixed z-30 md:static w-56 lg:w-64 bg-white dark:bg-nav border-r-nav border-r-0 dark:border-none h-screen overflow-y-scroll`}
+          } md:block fixed z-30 md:static w-56 lg:w-64 bg-white dark:bg-navy border-r-navy border-r-0 dark:border-none h-screen overflow-y-scroll`}
         >
           <SideNavbar open={navOpen} toggleNav={toggleSideNav}/>
         </div>

@@ -7,9 +7,10 @@ import SearchSvg from "../icons/search.svg";
 import CloseSvg from "../icons/close.svg";
 import lightThemeSvg from "../icons/light_theme.svg";
 import darkThemeSvg from "../icons/dark_theme.svg";
-import kebabMenuSvg from "../icons/kebab_menu.svg";
-import gridSvg from "../icons/grid.svg";
 import hamburgerSvg from "../icons/hamburger.svg";
+import { MdFormatListBulleted } from "react-icons/md";
+import { MdOutlineGridView } from "react-icons/md";
+
 const Navbar = ({
   val,
   handleChange,
@@ -24,7 +25,7 @@ const Navbar = ({
     setTheme(theme === "dark" ? "light" : "dark");
   };
   return (
-    <div className="flex justify-between md:bg-transparent dark:md:bg-transparent bg-white dark:bg-nav">
+    <div className="flex justify-between md:bg-transparent dark:md:bg-transparent bg-white dark:bg-navy">
       <div className="flex items-center flex-1 me-1 md:me-3 ">
         <div className="pl-4 h-14 flex items-center md:hidden">
           <Image
@@ -46,8 +47,8 @@ const Navbar = ({
             <input
               value={val}
               onChange={(event) => handleChange(event.target.value)}
-              className="w-full h-7 md:h-14 rounded-md ps-7 md:ps-11 pe-3 bg-slate-400/20 dark:bg-nav placeholder:text-nav dark:placeholder:text-off-white placeholder-shown:text-ellipsis text-nav dark:text-white focus:outline-none focus:ring-sky-500 focus:ring-1 h-12"
-              placeholder="Search..."
+              className="w-full h-7 md:h-14 rounded-md ps-7 md:ps-11 pe-3 bg-slate-400/20 dark:bg-navy placeholder:text-navy dark:placeholder:text-off-white placeholder-shown:text-truncate text-navy dark:text-white focus:outline-none focus:ring-sky-500 focus:ring-1 h-12"
+              placeholder="Title, Movies, Keyword"
             />
             <span className="absolute z-0 inset-y-0 right-4 flex items-center pl-2">
               <Image
@@ -80,12 +81,17 @@ const Navbar = ({
           onClick={toggleTheme}
           className="cursor-pointer mx-2 h-4 w-4 md:h-6 md:w-6 color dark:filter-none"
         />
-        <Image
-          src={view === "grid" ? kebabMenuSvg : gridSvg}
-          alt="theme_icon"
-          onClick={toggleView}
-          className="cursor-pointer mx-2 h-4 w-4 md:h-6 md:w-6  color dark:filter-none"
-        />
+        {view === "grid" ? (
+          <MdFormatListBulleted
+            onClick={toggleView}
+            className="cursor-pointer mx-2 h-4 w-4 md:h-6 md:w-6"
+          />
+        ) : (
+          <MdOutlineGridView
+            onClick={toggleView}
+            className="cursor-pointer mx-2 h-4 w-4 md:h-6 md:w-6"
+          />
+        )}
       </div>
     </div>
   );

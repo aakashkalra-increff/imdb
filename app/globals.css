@@ -30,5 +30,5 @@ body {
   filter: invert(99%) sepia(56%) saturate(477%) hue-rotate(176deg) brightness(94%) contrast(84%);
 }
 .tint{
-  filter: invert(70%) sepia(15%) saturate(6935%) hue-rotate(144deg) brightness(104%) contrast(106%);
+  filter: hue-rotate(180deg) saturate(4) brightness(0.5);
 }

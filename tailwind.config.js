@@ -13,7 +13,7 @@ module.exports = {
         foreground: "var(--foreground)",
         "card-background": "#394B61",
         "off-white": "#D4D7DD",
-        nav: "#1F2A3C",
+        navy: "#1F2A3C",
         tint: "#00E0FF",
       },
     },

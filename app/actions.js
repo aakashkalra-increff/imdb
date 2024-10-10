@@ -1,4 +1,4 @@
-const URL = "./movies-list.json";
+const URL = "/api/ui-testing"
 export const fetchMovies = async () => {
   try {
     const res = await fetch(URL);

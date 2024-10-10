@@ -1,7 +1,5 @@
 "use client";
 import { useRef, useState } from "react";
-import Image from "next/image";
-import sortSvg from "../icons/sort.svg";
 import { BiSortAlt2 } from "react-icons/bi";
 
 const menuItems = [
@@ -37,15 +35,15 @@ const SortMenu = ({ handleSortChange }) => {
   const toggleMenu = () => {
     if (focus.current) {
       hideMenu();
-    } else {
-      showMenu();
+      return;
     }
+      showMenu();
   };
   return (
     <div className="flex items-center h-7">
       <button
         ref={buttonRef}
-        className="h-full flex items-center relative text-sm md:text-base leading-5 font-semibold bg-slate-400/20 dark:bg-nav rounded-full py-1 px-3 hover:bg-slate-400/20 dark:highlight-white/5 group"
+        className="h-full flex items-center relative text-sm md:text-base leading-5 bg-slate-400/20 dark:bg-navy rounded-full py-1 px-3 hover:bg-slate-400/20 dark:highlight-white/5 group"
         onClick={toggleMenu}
       >
         <span className="hidden md:block">Sort By - {selectedItem.name}</span>
@@ -66,8 +64,8 @@ const SortMenu = ({ handleSortChange }) => {
             strokeLinecap="round"
           ></path>
         </svg>
-        <div className="absolute group-focus bg-white dark:bg-nav w-0 h-0 overflow-hidden rounded-md right-0 top-7 group-focus:h-[auto] group-focus:w-auto shadow-xl">
-          <ul className="p-3 text-left text-sm md:text-basex text-nav dark:text-off-white">
+        <div className="absolute group-focus bg-white dark:bg-navy w-0 h-0 overflow-hidden rounded-md right-0 top-7 group-focus:h-[auto] group-focus:w-auto shadow-xl">
+          <ul className="p-3 text-left text-sm md:text-base text-navy dark:text-off-white">
             {menuItems.map((item) => (
               <li key={item.name} onClick={() => selectItem(item)}>
                 {item.name}

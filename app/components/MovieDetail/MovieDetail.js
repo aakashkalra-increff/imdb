@@ -35,9 +35,9 @@ const MovieDetail = ({ movie, row, showAnimation = true }) => {
             <div className="text-xl lg:text-2xl">{movie.Title}</div>
             {movie.imdbRating !== "N/A" && (
               <div className="flex items-center ">
-                <div className="w-24 bg-gray-800 rounded-md h-2 flex overflow-hidden">
+                <div className="w-24 bg-gray-400 dark:bg-gray-800 rounded-md h-2 flex overflow-hidden">
                   <span
-                    className="bg-nav dark:bg-tint h-full"
+                    className="bg-navy dark:bg-tint h-full"
                     style={{ width: `${movie.imdbRating * 10}%` }}
                   ></span>
                 </div>
@@ -53,13 +53,13 @@ const MovieDetail = ({ movie, row, showAnimation = true }) => {
               )}
               {movie.Runtime !== "N/A" && (
                 <div>
-                  <span className="w-28 inline-block">Running time:</span>{" "}
+                  <span className="w-28 inline-block">Running time:</span>
                   {movie.Runtime}
                 </div>
               )}
               {movie.Director !== "N/A" && (
                 <div>
-                  <span className="w-28 inline-block">Drirected By:</span>{" "}
+                  <span className="w-28 inline-block">Drirected By: </span>{" "}
                   {movie.Director}
                 </div>
               )}
@@ -70,10 +70,10 @@ const MovieDetail = ({ movie, row, showAnimation = true }) => {
             </div>
             <div className="text-xs lg:text-sm my-2">{movie.Plot}</div>
             <div className="my-3">
-              <button className="h-[38px] bg-nav dark:bg-tint dark:text-black text-white font-bold rounded-lg text-center mr-2 w-32 lg:w-40">
+              <button className="h-[38px] bg-navy dark:bg-tint dark:text-black text-white font-bold rounded-lg text-center mr-2 w-32 lg:w-40">
                 Play Movie
               </button>
-              <button className="h-[38px] border-nav dark:border-tint border-2 dark:text-tint text-center rounded-lg w-32 lg:w-40">
+              <button className="h-[38px] border-navy dark:border-tint border-2 dark:text-tint text-center rounded-lg w-32 lg:w-40">
                 Watch Trailer
               </button>
             </div>
