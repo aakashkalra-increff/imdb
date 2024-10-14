@@ -21,7 +21,7 @@ const MovieList = ({ movies, view }) => {
     setSelectedMovie(null);
   }, [JSON.stringify(movies), view]); // eslint-disable-line
   return (
-    <div className="mt-16 md:mt-0 px-3 md:px-0" >
+    <div className="mt-16 md:mt-0 px-3 md:px-0">
       {movies.length ? (
         <div>
           {view === "grid" ? (
@@ -30,10 +30,18 @@ const MovieList = ({ movies, view }) => {
               ref={gridRef}
             >
               {selectedMovie && (
-                <MovieDetail movie={selectedMovie} row={selectedRow} />
+                <MovieDetail
+                  movie={selectedMovie}
+                  row={selectedRow}
+                  closeMovieDetail={() => setSelectedMovie(null)}
+                />
               )}
               {movies.map((movie, i) => (
-                <div key={movie.imdbID} onClick={() => handleClick(movie, i)}>
+                <div
+                  key={movie.imdbID}
+                  onClick={() => handleClick(movie, i)}
+                  className="aspect-[2/3]"
+                >
                   <MovieCard key={movie.Title} movie={movie} />
                 </div>
               ))}
@@ -42,10 +50,7 @@ const MovieList = ({ movies, view }) => {
             <div>
               {movies.map((movie, i) => (
                 <div key={movie.imdbID}>
-                  <MovieDetail
-                    movie={movie}
-                    showAnimation={false}
-                  />
+                  <MovieDetail movie={movie} showAnimation={false} />
                 </div>
               ))}
             </div>

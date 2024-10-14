@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import "./MovieDetail.css";
 import { Invalid } from "../../constants";
-const MovieDetail = ({ movie, row = 0, showAnimation = true }) => {
+import { IoClose } from "react-icons/io5";
+
+const MovieDetail = ({
+  movie,
+  row = 0,
+  showAnimation = true,
+  closeMovieDetail = null,
+}) => {
   const [animate, setAnimate] = useState(0);
   useEffect(() => {
     setAnimate(0);
@@ -19,14 +26,22 @@ const MovieDetail = ({ movie, row = 0, showAnimation = true }) => {
       `}
     >
       <div
-        className={`grid grid-cols-3 lg:grid-cols-4 origin-center w-full`}
+        className={`grid grid-cols-3 lg:grid-cols-4 origin-center w-full relative`}
         style={{ opacity: showAnimation ? animate : 1 }}
       >
+        {closeMovieDetail && (
+          <div className="absolute top-2 right-2 bg-navy">
+            <IoClose
+              className="w-6 h-6 cursor-pointer"
+              onClick={closeMovieDetail}
+            />
+          </div>
+        )}
         <div className="col-span-3 sm:col-span-1 flex items-center justify-center w-full overflow-hidden my-2 sm:mx-2">
           <div className="max-h-80 max-w-56">
             <img // eslint-disable-line
               src={movie.Poster}
-              className="object-stretch"
+              className="object-contain"
               alt="movie poster"
             />
           </div>
